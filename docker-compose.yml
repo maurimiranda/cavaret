@@ -19,6 +19,10 @@ services:
       - "8800:8000"
     depends_on:
       - db
+    environment:
+      - SECRET_KEY=bn7jnrz85jfi6edvzf8c$bnwm4tf20d94_8by6ir5_s)41c52j
+      - DEBUG=True
+      - DATABASE_URL=postgres://postgres:postgres@db/postgres
 
 volumes:
   pgdata:
