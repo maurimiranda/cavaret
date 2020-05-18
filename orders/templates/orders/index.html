@@ -4,7 +4,12 @@
     <li>{{ order }} - Quantity: {{ order.quantity  }} - Code: <strong>{{ order.pickup_code }}</strong></li>
     <ul>
       {% for item in order.item_set.all %}
-        <li>{{ item.quantity }} - {{ item.product }}</li>
+        <li>
+          {{ item.quantity }} - {{ item.product }}
+          {% if item.comment %}
+            <div>{{ item.comment }}</div>
+          {% endif %}
+        </li>
       {% endfor %}
     </ul>
     <br>

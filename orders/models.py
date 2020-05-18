@@ -60,7 +60,7 @@ class Product(models.Model):
         return "%d%%" % (self.profit() / self.price * 100)
 
 class Status(models.Model):
-    name = models.CharField(max_length=200, null=False, unique=True, blank=False, db_index=True)
+    name = models.CharField(max_length=50, null=False, unique=True, blank=False, db_index=True)
 
     class Meta:
         verbose_name_plural = "Statuses"
@@ -91,7 +91,7 @@ class Item(models.Model):
     quantity = models.IntegerField(null=False, default=1)
     cost = models.FloatField(blank=True)
     price = models.FloatField(blank=True)
-    comment = models.TextField(blank=True)
+    comment = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         return "%s - %s" % (self.order, self.product)
@@ -106,4 +106,4 @@ class Item(models.Model):
 class Payment(models.Model):
     provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
     amount = models.FloatField()
-    comment = models.TextField(blank=True)
+    comment = models.CharField(max_length=100, blank=True)
