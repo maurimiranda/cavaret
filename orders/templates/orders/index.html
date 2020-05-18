@@ -1,0 +1,12 @@
+<h1>{{ Orders }}</h1>
+<ul>
+{% for order in orders %}
+    <li>{{ order }} - Quantity: {{ order.quantity  }} - Code: <strong>{{ order.pickup_code }}</strong></li>
+    <ul>
+      {% for item in order.item_set.all %}
+        <li>{{ item.quantity }} - {{ item.product }}</li>
+      {% endfor %}
+    </ul>
+    <br>
+{% endfor %}
+</ul>

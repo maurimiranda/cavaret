@@ -77,7 +77,7 @@ class Order(models.Model):
     paid = models.BooleanField(default=False)
 
     def __str__(self):
-        return "#%s - %s - %s" % (self.id, self.date, self.member)
+        return "#%s - %s" % (self.id, self.member)
 
     def total(self):
         return self.item_set.aggregate(models.Sum('price'))['price__sum']
@@ -91,6 +91,7 @@ class Item(models.Model):
     quantity = models.IntegerField(null=False, default=1)
     cost = models.FloatField(blank=True)
     price = models.FloatField(blank=True)
+    comment = models.TextField(blank=True)
 
     def __str__(self):
         return "%s - %s" % (self.order, self.product)
