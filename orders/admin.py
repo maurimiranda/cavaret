@@ -18,7 +18,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'date', 'member', 'status', 'quantity', 'total', 'paid', 'pickup_code', 'tracking_code')
     list_filter = ('status', 'paid', 'member__name')
     inlines = [ItemInline]
-    actions = ['make_sent', 'make_done', 'make_ready']
+    actions = ['make_ready', 'make_sent', 'make_done']
 
     def make_ready(self, request, queryset):
         queryset.update(status=2)
