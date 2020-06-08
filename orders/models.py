@@ -10,6 +10,9 @@ class Member(models.Model):
     discount = models.IntegerField(null=False, default=0)
     joined_at = models.DateField(null=True, blank=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
 
@@ -17,6 +20,9 @@ class Provider(models.Model):
     name = models.CharField(max_length=100, null=False, unique=True, blank=False, db_index=True)
     email = models.EmailField(blank=True)
     account_number = models.CharField(max_length=100, blank=True)
+
+    class Meta:
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -39,6 +45,9 @@ class Provider(models.Model):
 class Brand(models.Model):
     name = models.CharField(max_length=100, null=False, unique=True, blank=False, db_index=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
 
@@ -49,6 +58,9 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     cost = models.FloatField()
     price = models.FloatField()
+
+    class Meta:
+        ordering = ['brand', 'name']
 
     def __str__(self):
         return "%s - %s" % (self.brand, self.name)
@@ -75,6 +87,9 @@ class Order(models.Model):
     pickup_code = models.CharField(max_length=50, blank=True)
     tracking_code = models.CharField(max_length=50, blank=True)
     paid = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['id']
 
     def __str__(self):
         return "#%s - %s" % (self.id, self.member)
