@@ -16,6 +16,7 @@ class Member(models.Model):
     def __str__(self):
         return self.name
 
+    @property
     def discount_factor(self):
         return 1 - self.discount / 100
 
@@ -30,20 +31,23 @@ class Provider(models.Model):
     def __str__(self):
         return self.name
 
+    @property
     def total(self):
         total = Item.objects.filter(product__provider=self.id).aggregate(models.Sum('cost'))['cost__sum']
         if total == None:
             total = 0
         return round(total, 2)
 
+    @property
     def paid(self):
         paid = self.payment_set.aggregate(models.Sum('amount'))['amount__sum']
         if paid == None:
             paid = 0
         return round(paid, 2)
 
+    @property
     def balance(self):
-        return self.total() - self.paid()
+        return self.total - self.paid
 
 class Brand(models.Model):
     name = models.CharField(max_length=100, null=False, unique=True, blank=False, db_index=True)
@@ -68,11 +72,13 @@ class Product(models.Model):
     def __str__(self):
         return "%s - %s" % (self.brand, self.name)
 
+    @property
     def profit(self):
         return round(self.price - self.cost, 2)
 
+    @property
     def profit_percentage(self):
-        return "%d%%" % (self.profit() / self.price * 100)
+        return "%d%%" % (self.profit / self.price * 100)
 
 class Status(models.Model):
     name = models.CharField(max_length=50, null=False, unique=True, blank=False, db_index=True)
@@ -97,9 +103,11 @@ class Order(models.Model):
     def __str__(self):
         return "#%s - %s" % (self.id, self.member)
 
+    @property
     def total(self):
         return self.item_set.aggregate(models.Sum('price'))['price__sum']
 
+    @property
     def quantity(self):
         return self.item_set.aggregate(models.Sum('quantity'))['quantity__sum']
 
