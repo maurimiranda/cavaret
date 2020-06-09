@@ -47,7 +47,7 @@ class Provider(models.Model):
 
     @property
     def balance(self):
-        return self.total - self.paid
+        return round(self.total - self.paid, 2)
 
 class Brand(models.Model):
     name = models.CharField(max_length=100, null=False, unique=True, blank=False, db_index=True)
