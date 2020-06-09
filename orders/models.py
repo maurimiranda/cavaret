@@ -98,7 +98,7 @@ class Order(models.Model):
     paid = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['id']
+        ordering = ['-id']
 
     def __str__(self):
         return "#%s - %s" % (self.id, self.member)
