@@ -16,6 +16,9 @@ class Member(models.Model):
     def __str__(self):
         return self.name
 
+    def discount_factor(self):
+        return 1 - self.discount / 100
+
 class Provider(models.Model):
     name = models.CharField(max_length=100, null=False, unique=True, blank=False, db_index=True)
     email = models.EmailField(blank=True)
@@ -115,7 +118,7 @@ class Item(models.Model):
         if not self.cost:
             self.cost = self.product.cost * self.quantity
         if not self.price:
-            self.price = self.product.price * (1 - self.order.member.discount / 100) * self.quantity
+            self.price = (self.product.profit * self.order.member.discount_factor + self.product.cost) * self.quantity
         super().save(*args, **kwargs)
 
 class Payment(models.Model):
