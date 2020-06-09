@@ -1,4 +1,5 @@
 from django.db import models
+import django.utils.timezone
 
 # Create your models here.
 
@@ -8,7 +9,7 @@ class Member(models.Model):
     address = models.TextField(blank=True)
     tax_id = models.CharField(max_length=10, blank=True)
     discount = models.IntegerField(null=False, default=0)
-    joined_at = models.DateField(null=True, blank=True)
+    joined_at = models.DateField(default=django.utils.timezone.now)
 
     class Meta:
         ordering = ['name']
@@ -91,8 +92,8 @@ class Status(models.Model):
 
 class Order(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
-    status = models.ForeignKey(Status, on_delete=models.CASCADE)
-    date = models.DateField()
+    status = models.ForeignKey(Status, on_delete=models.CASCADE, default=1)
+    date = models.DateField(default=django.utils.timezone.now)
     pickup_code = models.CharField(max_length=50, blank=True)
     tracking_code = models.CharField(max_length=50, blank=True)
     paid = models.BooleanField(default=False)
@@ -131,5 +132,6 @@ class Item(models.Model):
 
 class Payment(models.Model):
     provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
+    date = models.DateTimeField(default=django.utils.timezone.now)
     amount = models.FloatField()
     comment = models.CharField(max_length=100, blank=True)

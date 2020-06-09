@@ -1,6 +1,9 @@
-<h1>Pending Orders</h1>
-{% for provider_name, provider in pending_items.items %}
-    <h3>{{ provider_name }} - ${{ provider.total }}</h3>
+{% extends "admin/base.html" %}
+
+{% block content %}
+  <h1>Pending Orders</h1>
+  {% for provider_name, provider in pending_items.items %}
+    <h3><a href="admin/orders/provider/{{ provider.id }}">{{ provider_name }} - ${{ provider.total }}</a></h3>
     <ul>
       {% for item in provider.items %}
         <li>
@@ -8,12 +11,11 @@
         </li>
       {% endfor %}
     </ul>
-{% endfor %}
+  {% endfor %}
 
-<h1>Ready Orders</h1>
-<ul>
-{% for order in ready_orders %}
-    <li>{{ order }} - Quantity: {{ order.quantity  }} - Code: <strong>{{ order.pickup_code }}</strong></li>
+  <h1>Ready Orders</h1>
+  {% for order in ready_orders %}
+    <h3><a href="admin/orders/order/{{ order.id }}">{{ order }} - Quantity: {{ order.quantity  }} - Code: {{ order.pickup_code }}</a></h3>
     <ul>
       {% for item in order.item_set.all %}
         <li>
@@ -24,6 +26,5 @@
         </li>
       {% endfor %}
     </ul>
-    <br>
-{% endfor %}
-</ul>
+  {% endfor %}
+{% endblock %}

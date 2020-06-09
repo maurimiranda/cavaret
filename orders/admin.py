@@ -37,9 +37,10 @@ class ItemAdmin(admin.ModelAdmin):
 
 class ProviderAdmin(admin.ModelAdmin):
     list_display = ('name', 'total', 'paid', 'balance')
+    change_form_template = 'admin/orders/provider/change_form.html'
 
 class PaymentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'provider', 'amount', 'comment')
+    list_display = ('id', 'provider', 'date', 'amount', 'comment')
 
 admin.site.register(Member, MemberAdmin)
 admin.site.register(Product, ProductAdmin)

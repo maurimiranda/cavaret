@@ -9,7 +9,7 @@ from .models import Order, Item
 @login_required
 def index(request):
     pending_items = Item.objects.filter(order__status='1')\
-        .values('product__provider__name', 'product__brand__name', 'product__name')\
+        .values('product__provider__id', 'product__provider__name', 'product__brand__name', 'product__name')\
         .annotate(quantity=Sum('quantity'))\
         .annotate(cost=Sum('cost'))
 
@@ -19,6 +19,7 @@ def index(request):
         provider = item['product__provider__name']
         if provider not in providers:
             providers[provider] = {
+                'id': item['product__provider__id'],
                 'total': 0,
                 'items': []
             }
