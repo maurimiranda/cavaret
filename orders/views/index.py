@@ -2,9 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 
-from .models import Order, Item
-
-# Create your views here.
+from orders.models import Order, Item
 
 @login_required
 def index(request):

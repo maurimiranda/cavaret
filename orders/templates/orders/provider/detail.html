@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row bg-dark text-white p-2 align-items-center">
+    <div class="col h2 mb-0">{{ provider.name }}</div>
+  </div>
+
+  <div class="row bg-info p-2 mb-2 align-items-center">
+    <div class="col h4 mb-0">Total: ${{ provider.total }} - Balance: ${{ provider.balance }}</div>
+  </div>
+
+  <div class="row">
+    <div class="col-5">
+      <div class="card">
+        <div class="card-header">
+          Payments
+        </div>
+        <div class="card-body">
+          <table class="table">
+            {% for payment in provider.payment_set.all %}
+              <tr>
+                <td>#{{ payment.id }}</td>
+                <td>{{ payment.date.date }}</td>
+                <td>${{ payment.amount }}</td>
+                <td>{{ payment.comment }}</td>
+              </tr>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          Products
+        </div>
+        <div class="card-body">
+          <table class="table">
+            {% for product in provider.product_set.all %}
+              <tr>
+                <td>#{{ product.id }}</td>
+                <td>{{ product.brand.name }}</td>
+                <td>{{ product.name }}</td>
+                <td>${{ product.cost }}</td>
+                <td>${{ product.price }}</td>
+              </tr>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

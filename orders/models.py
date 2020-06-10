@@ -135,3 +135,6 @@ class Payment(models.Model):
     date = models.DateTimeField(default=django.utils.timezone.now)
     amount = models.FloatField()
     comment = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return "%s - %s - $%s" % (self.id, self.date.date(), self.amount)
