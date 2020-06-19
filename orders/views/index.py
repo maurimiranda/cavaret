@@ -28,5 +28,6 @@ def index(request):
 
     return render(request, 'orders/index.html', {
         'pending_items': providers,
+        'pending_orders': Order.objects.filter(status__name='Pending'),
         'ready_orders': Order.objects.filter(status__name='Ready')
     })

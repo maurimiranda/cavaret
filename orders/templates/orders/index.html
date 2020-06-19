@@ -6,7 +6,7 @@
   <div class="col">
     <div class="card">
       <div class="card-header">
-        Pending Orders
+        Providers Pending Items
       </div>
       <div class="card-body">
         {% for provider_name, provider in pending_items.items %}
@@ -30,7 +30,35 @@
   <div class="col">
     <div class="card">
       <div class="card-header">
-        Ready Orders
+        Members Pending Orders
+      </div>
+      <div class="card-body">
+        {% for order in pending_orders %}
+          <h5 class="card-title">
+            <a href="admin/orders/order/{{ order.id }}">{{ order }}</a> |
+            <small>Quantity: {{ order.quantity  }} - Code: {{ order.pickup_code }}</small>
+          </h5>
+          <ul>
+            {% for item in order.item_set.all %}
+              <li>
+                {{ item.quantity }} - {{ item.product }}
+                {% if item.comment %}
+                  <div>{{ item.comment }}</div>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row my-2">
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        Members Ready Orders
       </div>
       <div class="card-body">
         {% for order in ready_orders %}
