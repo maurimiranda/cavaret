@@ -12,7 +12,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 class ItemInline(admin.TabularInline):
     model = Item
-    fields = ('product', 'quantity', 'comment')
+    fields = ('product', 'quantity', 'cost', 'price', 'comment')
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'date', 'member', 'status', 'quantity', 'total', 'paid', 'pickup_code', 'tracking_code')
