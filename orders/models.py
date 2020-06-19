@@ -81,7 +81,7 @@ class Product(models.Model):
     def profit_percentage(self):
         if (self.price == 0):
             return 0
-        return "%d%%" % (self.profit / self.price * 100)
+        return self.profit / self.price * 100
 
 class Status(models.Model):
     name = models.CharField(max_length=50, null=False, unique=True, blank=False, db_index=True)
