@@ -79,6 +79,8 @@ class Product(models.Model):
 
     @property
     def profit_percentage(self):
+        if (self.price == 0):
+            return 0
         return "%d%%" % (self.profit / self.price * 100)
 
 class Status(models.Model):
