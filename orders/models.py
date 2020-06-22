@@ -7,7 +7,7 @@ class Member(models.Model):
     name = models.CharField(max_length=100, null=False, unique=True, blank=False, db_index=True)
     email = models.EmailField(blank=True)
     address = models.TextField(blank=True)
-    tax_id = models.CharField(max_length=10, blank=True)
+    tax_id = models.CharField(max_length=11, blank=True)
     discount = models.IntegerField(null=False, default=0)
     joined_at = models.DateField(default=django.utils.timezone.now)
 
