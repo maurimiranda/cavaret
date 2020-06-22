@@ -18,7 +18,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'date', 'member', 'status', 'quantity', 'total', 'paid', 'pickup_code', 'tracking_code')
     list_filter = ('status', 'paid', 'member__name')
     inlines = [ItemInline]
-    actions = ['make_ready', 'make_sent', 'make_done']
+    actions = ['make_ready', 'make_sent', 'make_done', 'make_paid']
 
     def make_ready(self, request, queryset):
         queryset.update(status=2)
@@ -31,6 +31,10 @@ class OrderAdmin(admin.ModelAdmin):
     def make_done(self, request, queryset):
         queryset.update(status=4)
     make_done.short_description = "Mark as Done"
+
+    def make_paid(self, request, queryset):
+        queryset.update(paid=True)
+    make_done.short_description = "Mark as Paid"
 
 class ItemAdmin(admin.ModelAdmin):
     list_display = ('id', 'order', 'price', 'cost')
