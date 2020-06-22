@@ -22,15 +22,15 @@ class OrderAdmin(admin.ModelAdmin):
 
     def make_ready(self, request, queryset):
         queryset.update(status=2)
-    make_ready.short_description = "Mark as Ready"
+    make_ready.short_description = "Set to Ready"
 
     def make_sent(self, request, queryset):
         queryset.update(status=3)
-    make_sent.short_description = "Mark as Sent"
+    make_sent.short_description = "Set to Sent"
 
     def make_done(self, request, queryset):
         queryset.update(status=4)
-    make_done.short_description = "Mark as Done"
+    make_done.short_description = "Set to Done"
 
     def make_paid(self, request, queryset):
         queryset.update(paid=True)
