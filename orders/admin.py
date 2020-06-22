@@ -34,7 +34,7 @@ class OrderAdmin(admin.ModelAdmin):
 
     def make_paid(self, request, queryset):
         queryset.update(paid=True)
-    make_done.short_description = "Mark as Paid"
+    make_paid.short_description = "Mark as Paid"
 
 class ItemAdmin(admin.ModelAdmin):
     list_display = ('id', 'order', 'price', 'cost')
