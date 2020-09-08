@@ -140,14 +140,14 @@ class Item(models.Model):
     cost = models.FloatField(blank=True)
     price = models.FloatField(blank=True)
     comment = models.CharField(max_length=200, blank=True)
+    custom = models.BooleanField(default=False)
 
     def __str__(self):
         return "%s - %s" % (self.order, self.product)
 
     def save(self, *args, **kwargs):
-        if not self.cost:
+        if not self.custom:
             self.cost = self.product.cost * self.quantity
-        if not self.price:
             self.price = (
                 self.product.profit * self.order.member.discount_factor
                 + self.product.cost
