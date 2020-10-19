@@ -137,7 +137,7 @@ class Order(models.Model):
         code = self.pickup_code
         if self.tracking_code:
             if code:
-                code + "|" + self.pickup_code
+                code = code + "|" + self.tracking_code
             else:
                 code = self.tracking_code
         if not code:

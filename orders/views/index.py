@@ -41,10 +41,14 @@ def index(request):
         {
             "pending_items": providers,
             "providers": Provider.objects.all,
-            "pending_orders": Order.objects.filter(status__name="Pending"),
-            "ready_orders": Order.objects.filter(status__name="Ready").order_by(
-                Coalesce("tracking_code", "pickup_code").desc()
+            "pending_orders": Order.objects.filter(status__name="Pending").order_by(
+                "tracking_code", "pickup_code"
             ),
-            "sent_orders": Order.objects.filter(status__name="Sent"),
+            "ready_orders": Order.objects.filter(status__name="Ready").order_by(
+                "tracking_code", "pickup_code"
+            ),
+            "sent_orders": Order.objects.filter(status__name="Sent").order_by(
+                "tracking_code", "pickup_code"
+            ),
         },
     )
