@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
+from django.db.models.functions import Coalesce
 
 from orders.models import Order, Item, Provider
 
@@ -41,7 +42,9 @@ def index(request):
             "pending_items": providers,
             "providers": Provider.objects.all,
             "pending_orders": Order.objects.filter(status__name="Pending"),
-            "ready_orders": Order.objects.filter(status__name="Ready"),
+            "ready_orders": Order.objects.filter(status__name="Ready").order_by(
+                Coalesce("tracking_code", "pickup_code").desc()
+            ),
             "sent_orders": Order.objects.filter(status__name="Sent"),
         },
     )

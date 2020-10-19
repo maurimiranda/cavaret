@@ -1,0 +1,19 @@
+{% for order in orders %}
+  <div>
+    <a href="admin/orders/order/{{ order.id }}">{{ order }}</a>:
+    {{ order.quantity }} - {{ order.code }} - 
+    ${{ order.total }}  <strong>{{ order.paid|yesno:" - Paid," }}</strong>
+  </div>
+  {% if with_items %}
+    <ul>
+      {% for item in order.item_set.all %}
+        <li>
+          {{ item.quantity }} - {{ item.product }} 
+          {% if item.comment %}
+            <div>{{ item.comment }}</div>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endfor %}

@@ -1,6 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="row my-2">
+  {% if pending_items %}
   <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
     <div class="card">
       <div class="card-header">Providers Pending Items</div>
@@ -19,6 +20,7 @@
         {% endfor %}
       </div>
     </div>
+  {% endif %}
   </div>
   <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
     <div class="card">
@@ -35,67 +37,36 @@
   </div>
 </div>
 <div class="row my-2">
-  <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
-    <div class="card">
-      <div class="card-header">Members Pending Orders</div>
-      <div class="card-body">
-        {% for order in pending_orders %}
-          <div>
-            <a href="admin/orders/order/{{ order.id }}">{{ order }}</a> |
-            <small
-              >Quantity: {{ order.quantity }} - Code: {{ order.tracking_code }}</small
-            >
-          </div>
-          <ul>
-            {% for item in order.item_set.all %}
-            <li>
-              {{ item.quantity }} - {{ item.product }} {% if item.comment %}
-              <div>{{ item.comment }}</div>
-              {% endif %}
-            </li>
-            {% endfor %}
-          </ul>
-        {% endfor %}
+  {% if pending_orders %}
+    <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
+      <div class="card">
+        <div class="card-header">Members Pending Orders</div>
+        <div class="card-body">
+          {% include "./order_list.html" with orders=pending_orders with_items=True %}
+        </div>
       </div>
     </div>
-  </div>
+  {% endif %}
+  {% if ready_orders %}
   <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
     <div class="card">
       <div class="card-header">Members Ready Orders</div>
       <div class="card-body">
-        {% for order in ready_orders %}
-          <div>
-            <a href="admin/orders/order/{{ order.id }}">{{ order }}</a>:
-            {{ order.quantity }} - {{ order.tracking_code|default:"???" }} - 
-            <strong>${{ order.total }} {{ order.paid|yesno:" - Paid," }}</strong>
-          </div>
-          <ul>
-            {% for item in order.item_set.all %}
-            <li>
-              {{ item.quantity }} - {{ item.product }} {% if item.comment %}
-              <div>{{ item.comment }}</div>
-              {% endif %}
-            </li>
-            {% endfor %}
-          </ul>
-        {% endfor %}
+        {% include "./order_list.html" with orders=ready_orders with_items=True %}
       </div>
     </div>
   </div>
+  {% endif %}
+  {% if sent_orders %}
   <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
     <div class="card">
       <div class="card-header">Members Sent Orders</div>
       <div class="card-body">
-        {% for order in sent_orders %}
-          <div>
-            <a href="admin/orders/order/{{ order.id }}">{{ order }}</a>:
-            {{ order.quantity }} - {{ order.tracking_code|default:"???" }} - 
-            <strong>${{ order.total }} {{ order.paid|yesno:" - Paid," }}</strong>
-          </div>
-        {% endfor %}
+        {% include "./order_list.html" with orders=sent_orders %}
       </div>
     </div>
   </div>
+  {% endif %}
 </div>
 
 {% endblock %}
