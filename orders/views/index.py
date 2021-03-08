@@ -28,11 +28,13 @@ def index(request):
             providers[provider] = {
                 "id": item["product__provider__id"],
                 "total": 0,
+                "quantity": 0,
                 "items": [],
             }
 
         provider = providers[provider]
         provider["total"] += item["cost"]
+        provider["quantity"] += item["quantity"]
         provider["items"].append(item)
 
     return render(
