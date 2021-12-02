@@ -3,8 +3,18 @@
     <a href="admin/orders/order/{{ order.id }}">{{ order }}</a>:
     {{ order.quantity }} - 
     <a href="https://www.andesmarcargas.com.ar/seguimiento.html?numero={{ order.code }}&tipo=Seguimiento" >{{ order.code }}</a> - 
-    ${{ order.total }}  
-    <strong>{{ order.paid|yesno:" - Paid," }}</strong>
+    {% if order.paid %}
+      <s>${{ order.total }}</s>
+    {% else %}
+      <b>${{ order.total }}</b>
+    {% endif %}
+    {% if order.status_id == 1 %}
+      <a href="{% url 'update_order_status' order_id=order.id status_id=2 %}">📦</a>
+      {% elif order.status_id == 2 %}
+      <a href="{% url 'update_order_status' order_id=order.id status_id=3 %}">🚚</a>
+    {% elif order.status_id == 3 %}
+      <a href="{% url 'update_order_status' order_id=order.id status_id=4 %}">✅</a>
+    {% endif %}
   </div>
   {% if with_items %}
     <ul>
