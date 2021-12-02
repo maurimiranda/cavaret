@@ -4,3 +4,4 @@ venv
 *.pyc
 staticfiles
 prod.sql
+latest.dump

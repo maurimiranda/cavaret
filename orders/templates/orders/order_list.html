@@ -1,8 +1,10 @@
 {% for order in orders %}
   <div>
     <a href="admin/orders/order/{{ order.id }}">{{ order }}</a>:
-    {{ order.quantity }} - {{ order.code }} - 
-    ${{ order.total }}  <strong>{{ order.paid|yesno:" - Paid," }}</strong>
+    {{ order.quantity }} - 
+    <a href="https://www.andesmarcargas.com.ar/seguimiento.html?numero={{ order.code }}&tipo=Seguimiento" >{{ order.code }}</a> - 
+    ${{ order.total }}  
+    <strong>{{ order.paid|yesno:" - Paid," }}</strong>
   </div>
   {% if with_items %}
     <ul>
