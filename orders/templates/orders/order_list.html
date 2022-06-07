@@ -6,7 +6,7 @@
     {% if order.paid %}
       <s>${{ order.total }}</s>
     {% else %}
-      <b>${{ order.total }}</b>
+      <a href="{% url 'pay_order' order_id=order.id %}"><b>${{ order.total }}</b></a>
     {% endif %}
     {% if order.status_id == 1 %}
       <a href="{% url 'update_order_status' order_id=order.id status_id=2 %}">📦</a>
