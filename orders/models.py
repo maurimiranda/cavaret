@@ -132,18 +132,6 @@ class Order(models.Model):
     def quantity(self):
         return self.item_set.aggregate(models.Sum("quantity"))["quantity__sum"]
 
-    @property
-    def code(self):
-        code = self.pickup_code
-        if self.tracking_code:
-            if code:
-                code = code + "|" + self.tracking_code
-            else:
-                code = self.tracking_code
-        if not code:
-            code = "???"
-        return code
-
 
 class Item(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)

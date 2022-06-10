@@ -1,8 +1,21 @@
+<script>
+  const setTracking = (orderId) => {
+    const code = window.prompt('Insert Tracking Code');
+    if (code) {
+      window.location = `/orders/orders/${orderId}/update_tracking/ ?tracking_code=${code}`;
+    }
+  }
+</script>
+
 {% for order in orders %}
   <div>
     <a href="admin/orders/order/{{ order.id }}">{{ order }}</a>:
-    {{ order.quantity }} - 
-    <a href="https://www.andesmarcargas.com.ar/seguimiento.html?numero={{ order.code }}&tipo=Seguimiento" >{{ order.code }}</a> - 
+    {{ order.quantity }} -
+    {% if order.tracking_code %} 
+      <a href="https://www.andesmarcargas.com.ar/seguimiento.html?numero={{ order.tracking_code }}&tipo=Seguimiento" >{{ order.tracking_code }}</a>
+    {% else %}
+      <span role="button" onclick="setTracking({{ order.id }})">???</span> 
+    {% endif %} - 
     {% if order.paid %}
       <s>${{ order.total }}</s>
     {% else %}
