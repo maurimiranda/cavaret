@@ -2,7 +2,7 @@
   const setTracking = (orderId) => {
     const code = window.prompt('Insert Tracking Code');
     if (code) {
-      window.location = `/orders/orders/${orderId}/update_tracking/ ?tracking_code=${code}`;
+      window.location = `/orders/orders/${orderId}/update_tracking/?tracking_code=${code}`;
     }
   }
 </script>
